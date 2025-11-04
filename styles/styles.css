@@ -1,0 +1,18 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.header {
+  background-color: beige;
+  padding: 24px;
+}
+
+.header-title {
+  color: gray;
+  font: 4rem;
+  text-align: center;
+}
