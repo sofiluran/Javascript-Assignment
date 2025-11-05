@@ -7,12 +7,27 @@ body {
 }
 
 .header {
-  background-color: beige;
+  background-color: rgb(99, 45, 40);
   padding: 24px;
 }
 
 .header-title {
-  color: gray;
+  color: rgb(223, 220, 220);
   font: 4rem;
   text-align: center;
+}
+
+.main-content {
+  background-image: url(../images/conductor.jpeg);
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 700px;
+  text-align: center;
+}
+
+.play-game {
+  background-color: rgb(111, 30, 30);
+  border-radius: 8px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  padding: 16px;
 }
