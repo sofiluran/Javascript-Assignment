@@ -1,33 +1,19 @@
-/* Måste va med
-const -
-arrays -
-A random selection of an array index - 
-A dynamic assignment of a variable (ie using prompt) - 
-while loop - 
-for loop - 
-Comparison with user entered data - att man väljer vem som är mördaren - 
-A final won/lost message. User input MUST be the determining factor in whether the user wins or loses - 
-VG: 
-Comparison with an array - ie comparing user input to what is stored within an array. ?
-Nested logic. Loops within loops. - 
-Input validation - att man skriver in rätt, annars får man ett typ "skriv rätt" ? 
-Cancel Button handling ?
-Semantic variable naming - 
-Consistent code style ?
-Logical use of conditionals, if, else if, osv. -
-
-att göra:
-validation 
-cancel button
-loopa så man inte kan gå vidare? 
-*/
-
 const OPERAS = ["La Bohème", "Carmen", "The Barber of Seville", "La Traviata", "Turandot"]
 
 let myOpera = OPERAS[Math.floor(Math.random() * OPERAS.length)]
 
-const gameIntroduction = () => {
+const SUSPECTS = ["Elsa", "Bobby", "Skipper", "Viola"]
+const DOG = "Skipper"
+const MURDERER = SUSPECTS[Math.floor(Math.random() * SUSPECTS.length)]
 
+let detective;
+let suspectInterview;
+let interviewTechnique;
+let nextSuspect;
+let remainingSuspects;
+let lastRemainingSuspects;
+
+const gameIntroduction = () => {
   alert(`Welcome to the game: The murder at the opera!`)
   alert(`You, a detective, are going to the royal opera for the first time to watch ${myOpera}. 
 The first act has started when the lights suddenly goes out.
@@ -37,32 +23,44 @@ You put on your detective hat, and start your quest on finding the murderer.`)
 
 }
 
-let detective;
-
 const chooseName = () => {
+  let validName = false;
 
-  detective = prompt(`Choose a name for your detective`)
+  while (!validName) {
+    detective = prompt(`Choose a name for your detective`)
 
+    if (detective === null) {
+      const confirmCancel = confirm(`Are you sure you want to quit the game, detective?`)
+      if (confirmCancel) {
+        alert(`Goodbye!`)
+        return false;
+      } else {
+        continue;
+      }
+    }
+
+    detective = detective.trim()
+
+    if (detective.length === 0) {
+      alert(`Please enter a name, detective!`)
+    } else {
+      validName = true;
+    }
+  }
   alert(`"Thank god you're here detective ${detective}!" Says the whole audience. 
-"We have 4 suspects you should take a closer look at!"
+    "We have 4 suspects you should take a closer look at!"
 
-Elsa - The star violinist. She treats her violin like it's an extension of her own body — or perhaps, her weapon of choice.
+   Elsa  - The star violinist. She treats her violin like it's an extension of her own body — or perhaps, her weapon of choice.
 
-Bobby - the janitor. He is quiet and moves through the halls like a shadow, noticing everything others ignore. He knows every key, every creak in the floorboards, and perhaps every secret too.
+   Bobby - the janitor. He is quiet and moves through the halls like a shadow, noticing everything others ignore. He knows every key, every creak in the floorboards, and perhaps every secret too.
 
-Skipper - the conductors dog. Loyal, alert, and surprisingly perceptive. Skipper growls at strangers but wags his tail at those he trusts. Some say he understands more than any dog should.
+   Skipper - the conductors dog. Loyal, alert, and surprisingly perceptive. Skipper growls at strangers but wags his tail at those he trusts. Some say he understands more than any dog should.
 
-Viola - the operasinger. Dramatic, emotional, and a diva. Viola never simply talks — she performs. She craves attention and can fill an entire room with her voice — and sometimes, with her ego too. `)
+   Viola - the operasinger. Dramatic, emotional, and a diva. Viola never simply talks — she performs. She craves attention and can fill an entire room with her voice — and sometimes, with her ego too. `)
+
+  return true;
 
 }
-
-const SUSPECTS = ["Elsa", "Bobby", "Skipper", "Viola"]
-const DOG = "Skipper"
-
-const MURDERER = SUSPECTS[Math.floor(Math.random() * SUSPECTS.length)]
-
-let suspectInterview;
-let interviewTechnique;
 
 const firstInterview = () => {
 
@@ -73,20 +71,25 @@ const firstInterview = () => {
   interviewTechnique = parseInt(prompt(`And how do you want to interview ${suspectInterview}? 1; By holding ${suspectInterview} at gunpoint or 2; by whispering in ${suspectInterview}s ear? 
   Enter 1 or 2.`))
 
-  const gunResponse = `You grab your gun from your holster and point it at ${suspectInterview}. "Did you do it!? Did you kill the conductor!?" ${suspectInterview} starts crying. "No i didn't!" You realize this wasn't the best method to get an answer... It's time to leave crying ${suspectInterview} alone and conduct another interview...`
+  const gunResponse = `You grab your gun from your holster and point it at ${suspectInterview}. "Did you do it!? Did you kill the conductor!?" ${suspectInterview} starts crying. 
+  "No i didn't! Please stop!" 
+  You realize this wasn't the best method to get an answer... It's time to leave crying ${suspectInterview} alone and conduct another interview...`
 
-  const whisperResponse = `You whisper softly in ${suspectInterview}s ear: "What happened". ${suspectInterview} quietly answers: I'm not sure, everything happened so fast. Maybe interview someone else detective ${detective}...`
+  const whisperResponse = `You whisper softly in ${suspectInterview}s ear: "What happened". ${suspectInterview} quietly answers: I'm not sure, everything happened so fast. 
+  Maybe interview someone else detective ${detective}...`
 
 
   if (interviewTechnique === 1) {
     if (suspectInterview === "Skipper") {
-      alert(`You grab your gun from your holster and point it at ${suspectInterview}. "Did you do it!? Did you kill the conductor!?" ${suspectInterview} starts howling. ${suspectInterview} is a dog you idiot. He can't speak... It's time to leave ${suspectInterview} alone and conduct another interview.`)
+      alert(`You grab your gun from your holster and point it at ${suspectInterview}. "Did you do it!? Did you kill the conductor!?" ${suspectInterview} starts howling. ${suspectInterview} is a dog you idiot. He can't speak... 
+        It's time to leave ${suspectInterview} alone and conduct another interview.`)
     } else {
       alert(gunResponse)
     }
   } else if (interviewTechnique === 2) {
     if (suspectInterview === "Skipper") {
-      alert(`You whisper softly in ${suspectInterview}s ear: "What happened?". ${suspectInterview} starts to wiggle his tail and lays on his back for tummy scratches. Maybe interview someone else detective ${detective}...`)
+      alert(`You whisper softly in ${suspectInterview}s ear: "What happened?". ${suspectInterview} starts to wiggle his tail and lays on his back for tummy scratches. 
+        Maybe interview someone else detective ${detective}...`)
     } else {
       alert(whisperResponse)
     }
@@ -96,17 +99,13 @@ const firstInterview = () => {
   if (typeof suspectInterview === "undefined") {
     alert(`Did you spell that correctly? Try again...`)
   }
-
 }
-
-let nextSuspect;
-let remainingSuspects;
 
 const nextInterview = () => {
 
   remainingSuspects = SUSPECTS.filter(suspect => suspect !== suspectInterview)
 
-  nextSuspect = prompt(`You interviewed ${suspectInterview}, without any luck. Who do you want to interview next? ${remainingSuspects.join(`, `)}`)
+  nextSuspect = prompt(`You interviewed ${suspectInterview}, without any luck. Who do you want to interview next? Choose between: ${remainingSuspects.join(`, `)}`)
 
   let suspectLocation;
 
@@ -133,7 +132,11 @@ const nextInterview = () => {
   let counter = 0;
 
   while (!result) {
-    let userNumber = parseInt(prompt(`Enter a number between 1 - 5`))    // Add validation!?
+    let userNumber = parseInt(prompt(`Enter a number between 1 - 5`))
+
+    while (userNumber < 1 || userNumber > 5) {
+      userNumber = parseInt(prompt(`Please enter a number betewwn 1 - 5.`))
+    }
 
     if (userNumber === targetNumber) {
       alert(`Yay! The key fit! Freedom!`)
@@ -148,8 +151,6 @@ const nextInterview = () => {
 
 }
 
-let lastRemainingSuspects;
-
 const findNote = () => {
 
   lastRemainingSuspects = SUSPECTS.filter(suspect => suspect !== suspectInterview && suspect !== nextSuspect)
@@ -157,10 +158,9 @@ const findNote = () => {
   lastRemainingSuspects = prompt(`Who do you want to interview next? Choose between ${lastRemainingSuspects.join(", ")}.`)
 
   if (lastRemainingSuspects === lastRemainingSuspects) {
-    alert(`Good choice detevtive ${detective}! You found ${lastRemainingSuspects} sitting calmly on a chair in the corner of the stage. "So ${lastRemainingSuspects}, tell me what you saw tonight?" But before ${lastRemainingSuspects} answered you found something laying under the chair. When you look closer you see that it's a written handnote saying: "You will pay for what you did..."`)
+    alert(`Good choice detevtive ${detective}! You found ${lastRemainingSuspects} sitting calmly on a chair in the corner of the stage. "So ${lastRemainingSuspects}, tell me what you saw tonight?" 
+      But before ${lastRemainingSuspects} answered you found something laying under the chair. When you look closer you see that it's a written handnote saying: "You will pay for what you did..."`)
   }
-
-
 
   for (let i = 0; i < 2; i++) {
     let chooseClue = parseInt(prompt(`This was way more exciting than interviewing ${lastRemainingSuspects}. Enter 1 to check out the handwriting on the note, or 2 to look at the marks on the floor`))
@@ -188,10 +188,7 @@ const chooseMurderer = () => {
 
   alert(`It's getting dark outside and you really want to go home to your bed. It's time to decide who murdered the conductor.`)
 
-
   let guessMurderer = prompt(`Alright detective ${detective}, who do you think murdered the conductor? Enter Elsa, Bobby, Skipper or Viola.`)
-
-
 
   if (guessMurderer === MURDERER) {
     alert(`That's correct detective ${detective}, ${MURDERER} is the one who murdered the conductor in cold blood! Well done! Now you can go home to your warm nice bed.`)
@@ -200,7 +197,6 @@ const chooseMurderer = () => {
     The right answer was ${MURDERER}, who is running out of the door to never be seen again...`)
   }
 
-
   alert(`Thank's for playing "The Murder at the Opera"!`)
 
   console.log(`The murderer was: ${MURDERER}`)
@@ -208,16 +204,14 @@ const chooseMurderer = () => {
 
 }
 
-
 const playGame = () => {
 
   gameIntroduction()
-  chooseName()
+  if (!chooseName()) return;
   firstInterview()
   nextInterview()
   findNote()
   chooseMurderer()
-
 }
 
 let playButton = document.querySelector(".play-game")
