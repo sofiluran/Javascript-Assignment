@@ -39,7 +39,7 @@ const chooseName = () => {
       }
     }
 
-    detective = detective.trim()
+    detective = detective.trim();
 
     if (detective.length === 0) {
       alert(`Please enter a name, detective!`)
@@ -66,7 +66,7 @@ const firstInterview = () => {
 
   do {
     suspectInterview = prompt(`Select your first suspect to interview. Enter: Elsa, Bobby, Skipper or Viola`)
-  } while (!SUSPECTS.includes(suspectInterview))
+  } while (!SUSPECTS.includes(suspectInterview));
 
   interviewTechnique = parseInt(prompt(`And how do you want to interview ${suspectInterview}? 1; By holding ${suspectInterview} at gunpoint or 2; by whispering in ${suspectInterview}s ear? 
   Enter 1 or 2.`))
@@ -103,7 +103,7 @@ const firstInterview = () => {
 
 const nextInterview = () => {
 
-  remainingSuspects = SUSPECTS.filter(suspect => suspect !== suspectInterview)
+  remainingSuspects = SUSPECTS.filter(suspect => suspect !== suspectInterview);
 
   nextSuspect = prompt(`You interviewed ${suspectInterview}, without any luck. Who do you want to interview next? Choose between: ${remainingSuspects.join(`, `)}`)
 
@@ -128,7 +128,7 @@ const nextInterview = () => {
   Enter a number between 1 - 5 to try a key.`)
 
   let targetNumber = Math.floor(Math.random() * 5 + 1)
-  let result = false
+  let result = false;
   let counter = 0;
 
   while (!result) {
@@ -153,9 +153,9 @@ const nextInterview = () => {
 
 const findNote = () => {
 
-  lastRemainingSuspects = SUSPECTS.filter(suspect => suspect !== suspectInterview && suspect !== nextSuspect)
+  lastRemainingSuspects = SUSPECTS.filter(suspect => suspect !== suspectInterview && suspect !== nextSuspect);
 
-  lastRemainingSuspects = prompt(`Who do you want to interview next? Choose between ${lastRemainingSuspects.join(", ")}.`)
+  lastRemainingSuspects = prompt(`Who do you want to interview next? Choose between ${lastRemainingSuspects.join(", ")}.`);
 
   if (lastRemainingSuspects === lastRemainingSuspects) {
     alert(`Good choice detevtive ${detective}! You found ${lastRemainingSuspects} sitting calmly on a chair in the corner of the stage. "So ${lastRemainingSuspects}, tell me what you saw tonight?" 
